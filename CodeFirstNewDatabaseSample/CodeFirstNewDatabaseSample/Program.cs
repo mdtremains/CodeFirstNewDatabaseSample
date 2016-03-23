@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace CodeFirstNewDatabaseSample
 {
@@ -57,9 +58,25 @@ namespace CodeFirstNewDatabaseSample
         public virtual Blog Blog { get; set; }
     }
 
+    public class User
+    {
+        [Key]
+        public string Username { get; set; }
+        public string DisplayName { get; set; }
+    }
+
     public class BloggingContext : DbContext
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        // MDT 03-23-16, can be used to rename Database column name
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<User>()
+        //        .Property(u => u.DisplayName)
+        //        .HasColumnName("display_name");
+        //}
     }
 }
